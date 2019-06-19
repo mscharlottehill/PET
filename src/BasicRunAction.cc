@@ -61,16 +61,14 @@ BasicRunAction::BasicRunAction()
   //
 
   // Creating histograms
-  analysisManager->CreateH1("Not Sure","Not Sure Either", 500, 0.,1*MeV);
-  analysisManager->CreateH1("Lenght","trackL in material; z(mm)", 500, 0., 0.5*m);
+  analysisManager->CreateH1("Energy","Energy Deposited", 100, 0.,1.5*MeV);
+  analysisManager->CreateH1("Length","Track Length in Detector", 100, 0., 1.0*mm);
 
   // Creating ntuple
   //
   analysisManager->CreateNtuple("Basic", "Edep spacial distribution");
   analysisManager->CreateNtupleDColumn("Edep");
-  analysisManager->CreateNtupleDColumn("X");
-  analysisManager->CreateNtupleDColumn("Y");
-  analysisManager->CreateNtupleDColumn("Z");
+  analysisManager->CreateNtupleDColumn("Track Length");
   analysisManager->FinishNtuple();
 }
 

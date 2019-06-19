@@ -79,6 +79,9 @@ G4bool BasicPETSD::ProcessHits(G4Step* step,
 {
   // energy deposit
   auto edep = step->GetTotalEnergyDeposit();
+//  auto detHC = GetHitsCollection(fDetHCID, event);
+//  auto detHit = (*detHC)[detHC->entries()-1];
+//  auto edep = detHit->GetEdep();
 
   auto analysisManager = G4AnalysisManager::Instance();
   if(0.0 < edep) {
@@ -97,14 +100,13 @@ G4bool BasicPETSD::ProcessHits(G4Step* step,
     G4double y0 = 0.5*(y1 + y2);
     G4double z0 = 0.5*(z1 + z2);
     //    G4double r0 = std::sqrt(x0*x0 + y0*y0);
-    analysisManager->FillH1(0,z0+25.*cm,edep);
-    analysisManager->FillH1(1,z0+25.*cm,edep);
-    analysisManager->FillH1(2,z0+25.*cm,edep);
-    analysisManager->FillNtupleDColumn(0, edep);
-    analysisManager->FillNtupleDColumn(1, x0);
-    analysisManager->FillNtupleDColumn(2, y0);
-    analysisManager->FillNtupleDColumn(3, z0+25.*cm);
-    analysisManager->AddNtupleRow();
+    //analysisManager->FillH1(0, edep);
+    //analysisManager->FillH1(1,z0+25.*cm,edep);
+    //analysisManager->FillNtupleDColumn(0, edep);
+    //analysisManager->FillNtupleDColumn(1, x0);
+    //analysisManager->FillNtupleDColumn(2, y0);
+    //analysisManager->FillNtupleDColumn(3, z0);
+    //analysisManager->AddNtupleRow();
   }
   // step length
   G4double stepLength = 0.;
