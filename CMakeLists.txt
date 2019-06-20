@@ -44,18 +44,9 @@ target_link_libraries(Basic_exe ${Geant4_LIBRARIES})
 # relies on these scripts being in the current working directory.
 #
 set(EXAMPLEEdMedPhC_SCRIPTS
-  exampleEdMedPhc.out
-  exampleEdMedPh.in
   gui.mac
   init_vis.mac
-  run1.mac
-  run2.mac
-  run3.mac
-  run4.mac
-  run5.mac
-  run6.mac
   vis.mac
-  analysis_example.C
   )
 
 foreach(_script ${EXAMPLEEdMedPhC_SCRIPTS})

@@ -55,9 +55,12 @@ void BasicActionInitialization::BuildForMaster() const
 
 void BasicActionInitialization::Build() const
 {
+  BasicRunAction* runAction = new BasicRunAction();
+  SetUserAction(runAction);
+
   SetUserAction(new BasicPrimaryGeneratorAction);
   SetUserAction(new BasicRunAction);
-  SetUserAction(new BasicEventAction);
+  SetUserAction(new BasicEventAction(runAction));
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......

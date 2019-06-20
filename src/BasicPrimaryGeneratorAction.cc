@@ -22,11 +22,6 @@
 // * use  in  resulting  scientific  publications,  and indicate your *
 // * acceptance of all terms of the Geant4 Software license.          *
 // ********************************************************************
-//
-// $Id: BasicPrimaryGeneratorAction.cc 100946 2016-11-03 11:28:08Z gcosmo $
-//
-/// \file BasicPrimaryGeneratorAction.cc
-/// \brief Implementation of the BasicPrimaryGeneratorAction class
 
 #include "BasicPrimaryGeneratorAction.hh"
 
@@ -50,14 +45,14 @@ BasicPrimaryGeneratorAction::BasicPrimaryGeneratorAction()
   fParticleGun  = new G4ParticleGun(n_particle);
 }
 
-//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+//
 
 BasicPrimaryGeneratorAction::~BasicPrimaryGeneratorAction()
 {
   delete fParticleGun;
 }
 
-//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+//
 
 void BasicPrimaryGeneratorAction::GeneratePrimaries(G4Event* anEvent)
 {
@@ -69,10 +64,6 @@ void BasicPrimaryGeneratorAction::GeneratePrimaries(G4Event* anEvent)
 
   G4ThreeVector random = G4RandomDirection();
   G4ThreeVector photondir = random.unit();
-/*  // get a random direction in the x-y plane
-  G4ThreeVector z_axis = G4ThreeVector(0,0,1);
-  G4ThreeVector photondir = random.cross(z_axis).unit();
-*/
 
   fParticleGun->SetParticleDefinition(particleTable->FindParticle(particleName="gamma"));
 

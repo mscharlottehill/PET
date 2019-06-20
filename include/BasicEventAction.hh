@@ -32,10 +32,11 @@
 #define BasicEventAction_h 1
 
 #include "G4UserEventAction.hh"
-
 #include "BasicPETHit.hh"
-
 #include "globals.hh"
+#include "BasicRunAction.hh"
+
+//class BasicRunAction;
 
 /// Event action class
 ///
@@ -46,7 +47,7 @@
 class BasicEventAction : public G4UserEventAction
 {
 public:
-  BasicEventAction();
+  BasicEventAction(BasicRunAction* runAction);
   virtual ~BasicEventAction();
 
   virtual void  BeginOfEventAction(const G4Event* event);
@@ -59,6 +60,7 @@ private:
   void PrintEventStatistics(G4double detectorEdep, G4double detectorTrackLength) const;
 
   // data members
+  BasicRunAction*  fRunAction;
   G4int  fDetHCID;
 };
 

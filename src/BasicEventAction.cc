@@ -44,8 +44,9 @@
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
-BasicEventAction::BasicEventAction()
+BasicEventAction::BasicEventAction(BasicRunAction* runAction)
  : G4UserEventAction(),
+   fRunAction(runAction),
    fDetHCID(-1)
 {}
 
@@ -120,9 +121,6 @@ void BasicEventAction::EndOfEventAction(const G4Event* event)
       detHit->GetEdep(), detHit->GetTrackLength());
   }
 
-  // Fill histograms, ntuple
-  //
-
   // get analysis manager
   auto analysisManager = G4AnalysisManager::Instance();
 
@@ -134,13 +132,9 @@ void BasicEventAction::EndOfEventAction(const G4Event* event)
   analysisManager->FillNtupleDColumn(1, detHit->GetTrackLength());
   analysisManager->AddNtupleRow();
 
+  G4double dep = detHit->GetEdep();
+  if (dep > 0.0) fRunAction->CountEvent();
+  // still not working - something wrong with the accumulable???
 
-  // // fill ntuple
-  // analysisManager->FillNtupleDColumn(0, absoHit->GetEdep());
-  // analysisManager->FillNtupleDColumn(1, gapHit->GetEdep());
-  // analysisManager->FillNtupleDColumn(2, absoHit->GetTrackLength());
-  // analysisManager->FillNtupleDColumn(3, gapHit->GetTrackLength());
-  // analysisManager->AddNtupleRow();
+
 }
-
-//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......

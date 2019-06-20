@@ -23,23 +23,21 @@
 // * acceptance of all terms of the Geant4 Software license.          *
 // ********************************************************************
 //
-// $Id: BasicRunAction.cc 100946 2016-11-03 11:28:08Z gcosmo $
-//
-/// \file BasicRunAction.cc
-/// \brief Implementation of the BasicRunAction class
 
 #include "BasicRunAction.hh"
 #include "BasicAnalysis.hh"
 
 #include "G4Run.hh"
 #include "G4RunManager.hh"
+#include "G4AccumulableManager.hh"
 #include "G4UnitsTable.hh"
 #include "G4SystemOfUnits.hh"
 
-//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+//
 
 BasicRunAction::BasicRunAction()
- : G4UserRunAction()
+ : G4UserRunAction(),
+   fGoodEvents(0)
 {
   // set printing event number per each event
   G4RunManager::GetRunManager()->SetPrintProgress(1);
@@ -57,34 +55,35 @@ BasicRunAction::BasicRunAction()
   analysisManager->SetNtupleMerging(true);
     // Note: merging ntuples is available only with Root output
 
-  // Book histograms, ntuple
-  //
-
   // Creating histograms
   analysisManager->CreateH1("Energy","Energy Deposited", 100, 0.,1.5*MeV);
   analysisManager->CreateH1("Length","Track Length in Detector", 100, 0., 1.0*mm);
 
   // Creating ntuple
-  //
   analysisManager->CreateNtuple("Basic", "Edep spacial distribution");
   analysisManager->CreateNtupleDColumn("Edep");
-  analysisManager->CreateNtupleDColumn("Track Length");
+  analysisManager->CreateNtupleDColumn("TrackLength");
   analysisManager->FinishNtuple();
+
+  // Register accumulable to the accumulable manager
+  G4AccumulableManager* accumulableManager = G4AccumulableManager::Instance();
+  accumulableManager->RegisterAccumulable(fGoodEvents);
 }
 
-//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+//
 
 BasicRunAction::~BasicRunAction()
 {
   delete G4AnalysisManager::Instance();
 }
 
-//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+//
 
-void BasicRunAction::BeginOfRunAction(const G4Run* /*run*/)
+void BasicRunAction::BeginOfRunAction(const G4Run* run)
 {
-  //inform the runManager to save random number seed
-  //G4RunManager::GetRunManager()->SetRandomNumberStore(true);
+  // reset accumulables to their initial values
+  G4AccumulableManager* accumulableManager = G4AccumulableManager::Instance();
+  accumulableManager->Reset();
 
   // Get analysis manager
   auto analysisManager = G4AnalysisManager::Instance();
@@ -93,12 +92,19 @@ void BasicRunAction::BeginOfRunAction(const G4Run* /*run*/)
   //
   G4String fileName = "BasicOut";
   analysisManager->OpenFile(fileName);
+
 }
 
-//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+//
 
-void BasicRunAction::EndOfRunAction(const G4Run* /*run*/)
+void BasicRunAction::EndOfRunAction(const G4Run* run)
 {
+  G4int nofEvents = run->GetNumberOfEvent();
+
+  // Merge accumulables
+  G4AccumulableManager* accumulableManager = G4AccumulableManager::Instance();
+  accumulableManager->Merge();
+
   // print histogram statistics
   //
   auto analysisManager = G4AnalysisManager::Instance();
@@ -116,12 +122,20 @@ void BasicRunAction::EndOfRunAction(const G4Run* /*run*/)
        << " rms = "
        << G4BestUnit(analysisManager->GetH1(0)->rms(),  "Length") << G4endl;
 
-    G4cout << " Lenght of radiation interaction : mean = "
+    G4cout << " Length of radiation interaction : mean = "
       << G4BestUnit(analysisManager->GetH1(1)->mean(), "Length")
       << " rms = "
       << G4BestUnit(analysisManager->GetH1(1)->rms(),  "Length") << G4endl;
 
+
+    G4int goodEvents = fGoodEvents.GetValue();
+    G4double sensitivity = (goodEvents/nofEvents) * 100;
+    G4cout << " Crude sensitivity of the detector : "
+           << goodEvents
+           << " per cent. " << G4endl;
+
   }
+
 
   // save histograms & ntuple
   //
