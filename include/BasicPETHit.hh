@@ -23,11 +23,6 @@
 // * acceptance of all terms of the Geant4 Software license.          *
 // ********************************************************************
 //
-// $Id: BasicPETHit.hh 100946 2016-11-03 11:28:08Z gcosmo $
-//
-/// \file BasicPETHit.hh
-/// \brief Definition of the BasicPETHit class
-
 #ifndef BasicPETHit_h
 #define BasicPETHit_h 1
 
@@ -37,11 +32,6 @@
 #include "G4ThreeVector.hh"
 #include "G4Threading.hh"
 
-/// Calorimeter hit class
-///
-/// It defines data members to store the the energy deposit and track lengths
-/// of charged particles in a selected volume:
-/// - fEdep, fTrackLength
 
 class BasicPETHit : public G4VHit
 {

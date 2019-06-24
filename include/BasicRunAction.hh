@@ -23,10 +23,6 @@
 // * acceptance of all terms of the Geant4 Software license.          *
 // ********************************************************************
 //
-// $Id: BasicRunAction.hh 74265 2013-10-02 14:41:20Z gcosmo $
-//
-/// \file BasicRunAction.hh
-/// \brief Definition of the BasicRunAction class
 
 #ifndef BasicRunAction_h
 #define BasicRunAction_h 1
@@ -37,23 +33,6 @@
 
 class G4Run;
 
-/// Run action class
-///
-/// It accumulates statistic and computes dispersion of the energy deposit
-/// and track lengths of charged particles with use of analysis tools:
-/// H1D histograms are created in BeginOfRunAction() for the following
-/// physics quantities:
-/// - Edep in absorber
-/// - Edep in gap
-/// - Track length in absorber
-/// - Track length in gap
-/// The same values are also saved in the ntuple.
-/// The histograms and ntuple are saved in the output file in a format
-/// accoring to a selected technology in BasicAnalysis.hh.
-///
-/// In EndOfRunAction(), the accumulated statistic and computed
-/// dispersion is printed.
-///
 
 class BasicRunAction : public G4UserRunAction
 {
@@ -64,6 +43,7 @@ class BasicRunAction : public G4UserRunAction
     virtual void BeginOfRunAction(const G4Run*);
     virtual void   EndOfRunAction(const G4Run*);
     void CountEvent()           { fGoodEvents += 1; };
+    // this doesn't appear to work
 
 //  private:
     G4Accumulable<G4int>    fGoodEvents;

@@ -23,10 +23,7 @@
 // * acceptance of all terms of the Geant4 Software license.          *
 // ********************************************************************
 //
-// $Id: BasicDetectorConstruction.hh 75215 2013-10-29 16:07:06Z gcosmo $
-//
-/// \file BasicDetectorConstruction.hh
-/// \brief Definition of the BasicDetectorConstruction class
+
 
 #ifndef BasicDetectorConstruction_h
 #define BasicDetectorConstruction_h 1
@@ -37,21 +34,6 @@
 class G4VPhysicalVolume;
 class G4GlobalMagFieldMessenger;
 
-/// Detector construction class to define materials and geometry.
-/// The calorimeter is a box made of a given number of layers. A layer consists
-/// of an absorber plate and of a detection gap. The layer is replicated.
-///
-/// Four parameters define the geometry of the calorimeter :
-///
-/// - the thickness of an absorber plate,
-/// - the thickness of a gap,
-/// - the number of layers,
-/// - the transverse size of the calorimeter (the input face is a square).
-///
-/// In ConstructSDandField() sensitive detectors of BasicCalorimeterSD type
-/// are created and associated with the Absorber and Gap volumes.
-/// In addition a transverse uniform magnetic field is defined
-/// via G4GlobalMagFieldMessenger class.
 
 class BasicDetectorConstruction : public G4VUserDetectorConstruction
 {

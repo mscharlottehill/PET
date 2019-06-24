@@ -35,7 +35,7 @@
 #include "G4RandomDirection.hh"
 
 // PGA
-// Frankensteined together from Tangle2's back2back photons
+// based on Tangle2's back2back photons
 
 BasicPrimaryGeneratorAction::BasicPrimaryGeneratorAction()
  : G4VUserPrimaryGeneratorAction(),

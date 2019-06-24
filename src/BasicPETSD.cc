@@ -62,7 +62,6 @@ void BasicPETSD::Initialize(G4HCofThisEvent* hce)
   hce->AddHitsCollection( hcID, fHitsCollection );
 
   // Create hits
-  // fNofCells for cells + one more for total sums
   for (G4int i=0; i<2; i++ ) {
     fHitsCollection->insert(new BasicPETHit());
   }
@@ -91,10 +90,9 @@ G4bool BasicPETSD::ProcessHits(G4Step* step,
 
   auto touchable = (step->GetPreStepPoint()->GetTouchable());
 
-  // Get calorimeter cell id
   auto layerNumber = touchable->GetReplicaNumber(1);
 
-  // Get hit accounting data for this cell
+  // Get hit accounting data
   auto hit = (*fHitsCollection)[layerNumber];
   if ( ! hit ) {
     G4ExceptionDescription msg;

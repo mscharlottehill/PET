@@ -22,11 +22,6 @@
 // * use  in  resulting  scientific  publications,  and indicate your *
 // * acceptance of all terms of the Geant4 Software license.          *
 // ********************************************************************
-//
-// $Id: BasicEventAction.hh 75215 2013-10-29 16:07:06Z gcosmo $
-//
-/// \file BasicEventAction.hh
-/// \brief Definition of the BasicEventAction class
 
 #ifndef BasicEventAction_h
 #define BasicEventAction_h 1
@@ -38,11 +33,6 @@
 
 //class BasicRunAction;
 
-/// Event action class
-///
-/// In EndOfEventAction(), it prints the accumulated quantities of the energy
-/// deposit and track lengths of charged particles in Absober and Gap layers
-/// stored in the hits collections.
 
 class BasicEventAction : public G4UserEventAction
 {

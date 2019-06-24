@@ -23,35 +23,31 @@
 // * acceptance of all terms of the Geant4 Software license.          *
 // ********************************************************************
 //
-// $Id: BasicActionInitialization.cc 68058 2013-03-13 14:47:43Z gcosmo $
-//
-/// \file BasicActionInitialization.cc
-/// \brief Implementation of the BasicActionInitialization class
 
 #include "BasicActionInitialization.hh"
 #include "BasicPrimaryGeneratorAction.hh"
 #include "BasicRunAction.hh"
 #include "BasicEventAction.hh"
 
-//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+//
 
 BasicActionInitialization::BasicActionInitialization()
  : G4VUserActionInitialization()
 {}
 
-//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+//
 
 BasicActionInitialization::~BasicActionInitialization()
 {}
 
-//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+//
 
 void BasicActionInitialization::BuildForMaster() const
 {
   SetUserAction(new BasicRunAction);
 }
 
-//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+//
 
 void BasicActionInitialization::Build() const
 {
@@ -64,4 +60,4 @@ void BasicActionInitialization::Build() const
 
 }
 
-//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+//

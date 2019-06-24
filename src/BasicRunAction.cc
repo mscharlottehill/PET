@@ -131,7 +131,7 @@ void BasicRunAction::EndOfRunAction(const G4Run* run)
     //G4int goodEvents = fGoodEvents.GetValue();
     //G4double sensitivity = (goodEvents/nofEvents) * 100;
     G4cout << fGoodEvents.GetValue() << G4endl;
-    // this isn#t increasing and idk why
+    // this isn't increasing and I don't know why
 
   }
 
@@ -142,4 +142,4 @@ void BasicRunAction::EndOfRunAction(const G4Run* run)
   analysisManager->CloseFile();
 }
 
-//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+//

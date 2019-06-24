@@ -23,16 +23,10 @@
 // * acceptance of all terms of the Geant4 Software license.          *
 // ********************************************************************
 //
-// $Id: BasicAnalysis.hh 100946 2016-11-03 11:28:08Z gcosmo $
-//
-/// \file BasicAnalysis.hh
-/// \brief Selection of the analysis technology
 
 #ifndef BasicAnalysis_h
 #define BasicAnalysis_h 1
 
 #include "g4root.hh"
-//#include "g4cvs.hh"
-//#include "g4xml.hh"
 
 #endif

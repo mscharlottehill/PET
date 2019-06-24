@@ -23,10 +23,6 @@
 // * acceptance of all terms of the Geant4 Software license.          *
 // ********************************************************************
 //
-// $Id: BasicDetectorConstruction.cc 101905 2016-12-07 11:34:39Z gunter $
-//
-/// \file BasicDetectorConstruction.cc
-/// \brief Implementation of the BasicDetectorConstruction class
 
 #include "BasicDetectorConstruction.hh"
 #include "BasicPETSD.hh"
@@ -56,11 +52,11 @@
 #include "G4PhysicalConstants.hh"
 #include "G4SystemOfUnits.hh"
 
-//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+//
 
 //G4ThreadLocal
 
-//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+//
 
 BasicDetectorConstruction::BasicDetectorConstruction()
  : G4VUserDetectorConstruction(),
@@ -68,13 +64,13 @@ BasicDetectorConstruction::BasicDetectorConstruction()
 {
 }
 
-//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+//
 
 BasicDetectorConstruction::~BasicDetectorConstruction()
 {
 }
 
-//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+//
 
 G4VPhysicalVolume* BasicDetectorConstruction::Construct()
 {
@@ -85,7 +81,7 @@ G4VPhysicalVolume* BasicDetectorConstruction::Construct()
   return DefineVolumes();
 }
 
-//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+//
 
 void BasicDetectorConstruction::DefineMaterials()
 {
@@ -103,7 +99,7 @@ void BasicDetectorConstruction::DefineMaterials()
   LSO->AddElement(O , 5);
 }
 
-//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+//
 
 G4VPhysicalVolume* BasicDetectorConstruction::DefineVolumes()
 {
@@ -181,7 +177,7 @@ new G4PVPlacement(0,                       // no rotation
   return physWorld;
 }
 
-//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+//
 
 void BasicDetectorConstruction::ConstructSDandField()
 {
@@ -196,4 +192,4 @@ void BasicDetectorConstruction::ConstructSDandField()
   SetSensitiveDetector("Tube",detectorSD);
 }
 
-//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+//

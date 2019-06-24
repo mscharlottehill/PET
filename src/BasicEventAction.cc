@@ -23,10 +23,6 @@
 // * acceptance of all terms of the Geant4 Software license.          *
 // ********************************************************************
 //
-// $Id: BasicEventAction.cc 100946 2016-11-03 11:28:08Z gcosmo $
-//
-/// \file BasicEventAction.cc
-/// \brief Implementation of the BasicEventAction class
 
 #include "BasicEventAction.hh"
 #include "BasicPETSD.hh"
@@ -43,7 +39,7 @@
 #include "Randomize.hh"
 #include <iomanip>
 
-//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+//
 
 BasicEventAction::BasicEventAction(BasicRunAction* runAction)
  : G4UserEventAction(),
@@ -51,12 +47,12 @@ BasicEventAction::BasicEventAction(BasicRunAction* runAction)
    fDetHCID(-1)
 {}
 
-//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+//
 
 BasicEventAction::~BasicEventAction()
 {}
 
-//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+//
 
 BasicPETHitsCollection*
 BasicEventAction::GetHitsCollection(G4int hcID,
@@ -76,7 +72,7 @@ BasicEventAction::GetHitsCollection(G4int hcID,
   return hitsCollection;
 }
 
-//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+//
 
 void BasicEventAction::PrintEventStatistics(
                               G4double detectorEdep, G4double detectorTrackLength) const
@@ -137,12 +133,7 @@ void BasicEventAction::EndOfEventAction(const G4Event* event)
   analysisManager->AddNtupleRow();
 
   if (dep > 0.0) fRunAction->CountEvent();
-//  G4cout << fGoodEvents.GetValue() << G4endl;
-  // just counting the event DOES NOT WORK
-  G4AccumulableManager* accumulableManager = G4AccumulableManager::Instance();
-// Access accumulables by name
-  G4int goodev  = fGoodEvents->GetValue();
-  G4cout << goodev << G4endl;
+// this doesn't work and I don't know why
 
 
 }

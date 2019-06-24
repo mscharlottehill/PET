@@ -23,10 +23,6 @@
 // * acceptance of all terms of the Geant4 Software license.          *
 // ********************************************************************
 //
-// $Id: BasicPETHit.cc 69586 2013-05-08 14:20:11Z gcosmo $
-//
-/// \file BasicPETHit.cc
-/// \brief Implementation of the BasicPETHit class
 
 #include "BasicPETHit.hh"
 #include "G4UnitsTable.hh"
@@ -39,7 +35,7 @@
 
 G4ThreadLocal G4Allocator<BasicPETHit>* BasicPETHitAllocator = 0;
 
-//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+//
 
 BasicPETHit::BasicPETHit()
  : G4VHit(),
@@ -47,11 +43,11 @@ BasicPETHit::BasicPETHit()
    fTrackLength(0.)
 {}
 
-//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+//
 
 BasicPETHit::~BasicPETHit() {}
 
-//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+//
 
 BasicPETHit::BasicPETHit(const BasicPETHit& right)
   : G4VHit()
@@ -60,7 +56,7 @@ BasicPETHit::BasicPETHit(const BasicPETHit& right)
   fTrackLength = right.fTrackLength;
 }
 
-//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+//
 
 const BasicPETHit& BasicPETHit::operator=(const BasicPETHit& right)
 {
@@ -70,14 +66,14 @@ const BasicPETHit& BasicPETHit::operator=(const BasicPETHit& right)
   return *this;
 }
 
-//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+//
 
 G4int BasicPETHit::operator==(const BasicPETHit& right) const
 {
   return ( this == &right ) ? 1 : 0;
 }
 
-//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+//
 
 void BasicPETHit::Print()
 {
@@ -87,4 +83,4 @@ void BasicPETHit::Print()
      << G4endl;
 }
 
-//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+//
