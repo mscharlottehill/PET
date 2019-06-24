@@ -53,6 +53,8 @@ public:
   virtual void  BeginOfEventAction(const G4Event* event);
   virtual void    EndOfEventAction(const G4Event* event);
 
+  BasicRunAction*  fRunAction;
+
 private:
   // methods
   BasicPETHitsCollection* GetHitsCollection(G4int hcID,
@@ -60,7 +62,7 @@ private:
   void PrintEventStatistics(G4double detectorEdep, G4double detectorTrackLength) const;
 
   // data members
-  BasicRunAction*  fRunAction;
+//  BasicRunAction*  fRunAction;
   G4int  fDetHCID;
 };
 

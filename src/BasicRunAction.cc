@@ -79,7 +79,7 @@ BasicRunAction::~BasicRunAction()
 
 //
 
-void BasicRunAction::BeginOfRunAction(const G4Run* run)
+void BasicRunAction::BeginOfRunAction(const G4Run*)
 {
   // reset accumulables to their initial values
   G4AccumulableManager* accumulableManager = G4AccumulableManager::Instance();
@@ -128,11 +128,10 @@ void BasicRunAction::EndOfRunAction(const G4Run* run)
       << G4BestUnit(analysisManager->GetH1(1)->rms(),  "Length") << G4endl;
 
 
-    G4int goodEvents = fGoodEvents.GetValue();
-    G4double sensitivity = (goodEvents/nofEvents) * 100;
-    G4cout << " Crude sensitivity of the detector : "
-           << goodEvents
-           << " per cent. " << G4endl;
+    //G4int goodEvents = fGoodEvents.GetValue();
+    //G4double sensitivity = (goodEvents/nofEvents) * 100;
+    G4cout << fGoodEvents.GetValue() << G4endl;
+    // this isn#t increasing and idk why
 
   }
 

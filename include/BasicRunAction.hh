@@ -65,8 +65,8 @@ class BasicRunAction : public G4UserRunAction
     virtual void   EndOfRunAction(const G4Run*);
     void CountEvent()           { fGoodEvents += 1; };
 
-  private:
-      G4Accumulable<G4int>    fGoodEvents;
+//  private:
+    G4Accumulable<G4int>    fGoodEvents;
 };
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
