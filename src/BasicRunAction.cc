@@ -37,7 +37,7 @@
 
 BasicRunAction::BasicRunAction()
  : G4UserRunAction(),
-   fGoodEvents(0)
+   fGoodEvents(0) // setting the number works
 {
   // set printing event number per each event
   G4RunManager::GetRunManager()->SetPrintProgress(1);
@@ -82,8 +82,9 @@ BasicRunAction::~BasicRunAction()
 void BasicRunAction::BeginOfRunAction(const G4Run*)
 {
   // reset accumulables to their initial values
-  G4AccumulableManager* accumulableManager = G4AccumulableManager::Instance();
-  accumulableManager->Reset();
+//  G4AccumulableManager* accumulableManager = G4AccumulableManager::Instance();
+//  accumulableManager->Reset();
+  // resetting isn't the problem - commenting this out does nothing
 
   // Get analysis manager
   auto analysisManager = G4AnalysisManager::Instance();
@@ -99,11 +100,14 @@ void BasicRunAction::BeginOfRunAction(const G4Run*)
 
 void BasicRunAction::EndOfRunAction(const G4Run* run)
 {
+
   G4int nofEvents = run->GetNumberOfEvent();
 
   // Merge accumulables
   G4AccumulableManager* accumulableManager = G4AccumulableManager::Instance();
   accumulableManager->Merge();
+  G4cout << fGoodEvents.GetValue() << G4endl;
+  // not merging makes no difference - this isn't the problem
 
   // print histogram statistics
   //
@@ -117,10 +121,10 @@ void BasicRunAction::EndOfRunAction(const G4Run* run)
       G4cout << "for the local thread " << G4endl << G4endl;
     }
 
-    G4cout << " E absorbed z : mean = "
-       << G4BestUnit(analysisManager->GetH1(0)->mean(), "Length")
+    G4cout << " Energy deposited : mean = "
+       << G4BestUnit(analysisManager->GetH1(0)->mean(), "Energy")
        << " rms = "
-       << G4BestUnit(analysisManager->GetH1(0)->rms(),  "Length") << G4endl;
+       << G4BestUnit(analysisManager->GetH1(0)->rms(),  "Energy") << G4endl;
 
     G4cout << " Length of radiation interaction : mean = "
       << G4BestUnit(analysisManager->GetH1(1)->mean(), "Length")
@@ -130,7 +134,7 @@ void BasicRunAction::EndOfRunAction(const G4Run* run)
 
     //G4int goodEvents = fGoodEvents.GetValue();
     //G4double sensitivity = (goodEvents/nofEvents) * 100;
-    G4cout << fGoodEvents.GetValue() << G4endl;
+    //G4cout << fGoodEvents.GetValue() << G4endl;
     // this isn't increasing and I don't know why
 
   }

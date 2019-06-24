@@ -110,6 +110,10 @@ void BasicEventAction::EndOfEventAction(const G4Event* event)
   // get deposited energy
   G4double dep = detHit->GetEdep();
 
+  //if (dep > 1.022*MeV)
+  fRunAction->CountEvent();
+
+
   // Print per event (modulo n)
   //
   auto eventID = event->GetEventID();
@@ -132,8 +136,9 @@ void BasicEventAction::EndOfEventAction(const G4Event* event)
   analysisManager->FillNtupleDColumn(1, detHit->GetTrackLength());
   analysisManager->AddNtupleRow();
 
-  if (dep > 0.0) fRunAction->CountEvent();
-// this doesn't work and I don't know why
+  G4int q = fRunAction->fGoodEvents.GetValue();
+  G4cout << "it is " << q << G4endl;
+  // IT IS COUNTING
 
 
 }

@@ -46,7 +46,7 @@ class BasicRunAction : public G4UserRunAction
     // this doesn't appear to work
 
 //  private:
-    G4Accumulable<G4int>    fGoodEvents;
+    G4Accumulable<G4int>   fGoodEvents;
 };
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......

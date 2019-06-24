@@ -43,7 +43,7 @@ public:
   virtual void  BeginOfEventAction(const G4Event* event);
   virtual void    EndOfEventAction(const G4Event* event);
 
-  BasicRunAction*  fRunAction;
+  //BasicRunAction*  fRunAction;
 
 private:
   // methods
@@ -52,10 +52,10 @@ private:
   void PrintEventStatistics(G4double detectorEdep, G4double detectorTrackLength) const;
 
   // data members
-//  BasicRunAction*  fRunAction;
+  BasicRunAction*  fRunAction;
   G4int  fDetHCID;
 };
 
-//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+//
 
 #endif
