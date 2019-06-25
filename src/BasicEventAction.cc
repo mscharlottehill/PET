@@ -25,6 +25,7 @@
 //
 
 #include "BasicEventAction.hh"
+#include "BasicRunAction.hh"
 #include "BasicPETSD.hh"
 #include "BasicPETHit.hh"
 #include "BasicAnalysis.hh"
@@ -110,8 +111,8 @@ void BasicEventAction::EndOfEventAction(const G4Event* event)
   // get deposited energy
   G4double dep = detHit->GetEdep();
 
-  //if (dep > 1.022*MeV)
-  fRunAction->CountEvent();
+  // count if full energy is deposited
+  if (dep == 1.022*MeV) fRunAction->CountEvent();
 
 
   // Print per event (modulo n)

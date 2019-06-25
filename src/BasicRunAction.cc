@@ -82,8 +82,8 @@ BasicRunAction::~BasicRunAction()
 void BasicRunAction::BeginOfRunAction(const G4Run*)
 {
   // reset accumulables to their initial values
-//  G4AccumulableManager* accumulableManager = G4AccumulableManager::Instance();
-//  accumulableManager->Reset();
+  G4AccumulableManager* accumulableManager = G4AccumulableManager::Instance();
+  accumulableManager->Reset();
   // resetting isn't the problem - commenting this out does nothing
 
   // Get analysis manager
@@ -94,6 +94,9 @@ void BasicRunAction::BeginOfRunAction(const G4Run*)
   G4String fileName = "BasicOut";
   analysisManager->OpenFile(fileName);
 
+  //inform the runManager to save random number seed
+  G4RunManager::GetRunManager()->SetRandomNumberStore(false);
+
 }
 
 //
@@ -102,11 +105,11 @@ void BasicRunAction::EndOfRunAction(const G4Run* run)
 {
 
   G4int nofEvents = run->GetNumberOfEvent();
+  if (nofEvents == 0) return;
 
   // Merge accumulables
   G4AccumulableManager* accumulableManager = G4AccumulableManager::Instance();
   accumulableManager->Merge();
-  G4cout << fGoodEvents.GetValue() << G4endl;
   // not merging makes no difference - this isn't the problem
 
   // print histogram statistics
@@ -134,7 +137,7 @@ void BasicRunAction::EndOfRunAction(const G4Run* run)
 
     //G4int goodEvents = fGoodEvents.GetValue();
     //G4double sensitivity = (goodEvents/nofEvents) * 100;
-    //G4cout << fGoodEvents.GetValue() << G4endl;
+    G4cout << fGoodEvents.GetValue() << G4endl;
     // this isn't increasing and I don't know why
 
   }

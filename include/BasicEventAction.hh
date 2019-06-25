@@ -29,9 +29,9 @@
 #include "G4UserEventAction.hh"
 #include "BasicPETHit.hh"
 #include "globals.hh"
-#include "BasicRunAction.hh"
+//#include "BasicRunAction.hh"
 
-//class BasicRunAction;
+class BasicRunAction;
 
 
 class BasicEventAction : public G4UserEventAction

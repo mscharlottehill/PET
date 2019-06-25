@@ -31,8 +31,6 @@
 #include "G4Accumulable.hh"
 #include "globals.hh"
 
-class G4Run;
-
 
 class BasicRunAction : public G4UserRunAction
 {
@@ -43,7 +41,6 @@ class BasicRunAction : public G4UserRunAction
     virtual void BeginOfRunAction(const G4Run*);
     virtual void   EndOfRunAction(const G4Run*);
     void CountEvent()           { fGoodEvents += 1; };
-    // this doesn't appear to work
 
 //  private:
     G4Accumulable<G4int>   fGoodEvents;
