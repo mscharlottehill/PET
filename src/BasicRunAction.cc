@@ -138,7 +138,8 @@ void BasicRunAction::EndOfRunAction(const G4Run* run)
     //G4int goodEvents = fGoodEvents.GetValue();
     //G4double sensitivity = (goodEvents/nofEvents) * 100;
     G4cout << fGoodEvents.GetValue() << G4endl;
-    // this isn't increasing and I don't know why
+    // regardless of the value of fGoodEvents printed over the course of the events
+   // the final value printed at the end of the run is always the value it is initialised with
 
   }
 
