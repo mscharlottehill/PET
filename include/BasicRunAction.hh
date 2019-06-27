@@ -28,7 +28,6 @@
 #define BasicRunAction_h 1
 
 #include "G4UserRunAction.hh"
-#include "G4Accumulable.hh"
 #include "globals.hh"
 
 
@@ -40,12 +39,12 @@ class BasicRunAction : public G4UserRunAction
 
     virtual void BeginOfRunAction(const G4Run*);
     virtual void   EndOfRunAction(const G4Run*);
-    void CountEvent()           { fGoodEvents += 1; };
+    void CountEvent()           { GoodEventCount += 1;};
 
-//  private:
-    G4Accumulable<G4int>   fGoodEvents;
+  private:
+    static int GoodEventCount;
 };
 
-//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+//
 
 #endif

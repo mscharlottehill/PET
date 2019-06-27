@@ -29,21 +29,19 @@
 
 #include "G4Run.hh"
 #include "G4RunManager.hh"
-#include "G4AccumulableManager.hh"
 #include "G4UnitsTable.hh"
 #include "G4SystemOfUnits.hh"
 
 //
 
 BasicRunAction::BasicRunAction()
- : G4UserRunAction(),
-   fGoodEvents(0) // setting the number works
+ : G4UserRunAction()
 {
   // set printing event number per each event
   G4RunManager::GetRunManager()->SetPrintProgress(1);
 
   // Create analysis manager
-  // The choice of analysis technology is done via selectin of a namespace
+  // The choice of analysis technology is done via selection of a namespace
   // in BasicAnalysis.hh
   auto analysisManager = G4AnalysisManager::Instance();
   G4cout << "Using " << analysisManager->GetType() << G4endl;
@@ -56,7 +54,7 @@ BasicRunAction::BasicRunAction()
     // Note: merging ntuples is available only with Root output
 
   // Creating histograms
-  analysisManager->CreateH1("Energy","Energy Deposited", 100, 0.,1.5*MeV);
+  analysisManager->CreateH1("Energy","Energy Deposited", 1000, 0.,1.25*MeV);
   analysisManager->CreateH1("Length","Track Length in Detector", 100, 0., 1.0*mm);
 
   // Creating ntuple
@@ -64,10 +62,6 @@ BasicRunAction::BasicRunAction()
   analysisManager->CreateNtupleDColumn("Edep");
   analysisManager->CreateNtupleDColumn("TrackLength");
   analysisManager->FinishNtuple();
-
-  // Register accumulable to the accumulable manager
-  G4AccumulableManager* accumulableManager = G4AccumulableManager::Instance();
-  accumulableManager->RegisterAccumulable(fGoodEvents);
 }
 
 //
@@ -81,10 +75,6 @@ BasicRunAction::~BasicRunAction()
 
 void BasicRunAction::BeginOfRunAction(const G4Run*)
 {
-  // reset accumulables to their initial values
-  G4AccumulableManager* accumulableManager = G4AccumulableManager::Instance();
-  accumulableManager->Reset();
-  // resetting isn't the problem - commenting this out does nothing
 
   // Get analysis manager
   auto analysisManager = G4AnalysisManager::Instance();
@@ -93,9 +83,6 @@ void BasicRunAction::BeginOfRunAction(const G4Run*)
   //
   G4String fileName = "BasicOut";
   analysisManager->OpenFile(fileName);
-
-  //inform the runManager to save random number seed
-  G4RunManager::GetRunManager()->SetRandomNumberStore(false);
 
 }
 
@@ -106,11 +93,6 @@ void BasicRunAction::EndOfRunAction(const G4Run* run)
 
   G4int nofEvents = run->GetNumberOfEvent();
   if (nofEvents == 0) return;
-
-  // Merge accumulables
-  G4AccumulableManager* accumulableManager = G4AccumulableManager::Instance();
-  accumulableManager->Merge();
-  // not merging makes no difference - this isn't the problem
 
   // print histogram statistics
   //
@@ -135,11 +117,11 @@ void BasicRunAction::EndOfRunAction(const G4Run* run)
       << G4BestUnit(analysisManager->GetH1(1)->rms(),  "Length") << G4endl;
 
 
-    //G4int goodEvents = fGoodEvents.GetValue();
-    //G4double sensitivity = (goodEvents/nofEvents) * 100;
-    G4cout << fGoodEvents.GetValue() << G4endl;
-    // regardless of the value of fGoodEvents printed over the course of the events
-   // the final value printed at the end of the run is always the value it is initialised with
+    G4int goodEvents = GoodEventCount;
+    G4double sensitivity = (G4double(goodEvents)/nofEvents) * 100;
+
+    G4cout << " Good events: " << goodEvents << G4endl;
+    G4cout << " Crude sensitivity: " << sensitivity << " per cent" << G4endl;
 
   }
 

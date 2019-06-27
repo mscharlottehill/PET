@@ -109,7 +109,7 @@ G4VPhysicalVolume* BasicDetectorConstruction::DefineVolumes()
   G4Material* tube_mat   = nist->FindOrBuildMaterial("Lu2SiO5");
 
   // PET dimensions
-  G4double PET_in_rad = 0.4*m, PET_out_rad = 0.45*m, PET_length = 2.0*m;
+  G4double PET_in_rad = 0.4*m, PET_out_rad = 0.45*m, PET_length = 2.0*m; // vary these
 
   // world size
   G4double world_dim = 2.5*m;

@@ -30,6 +30,7 @@
 
 #include "BasicDetectorConstruction.hh"
 #include "BasicActionInitialization.hh"
+#include "BasicRunAction.hh"
 
 #ifdef G4MULTITHREADED
 #include "G4MTRunManager.hh"
@@ -46,7 +47,7 @@
 #include "G4VisExecutive.hh"
 #include "G4UIExecutive.hh"
 
-//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+//
 
 namespace {
   void PrintUsage() {
@@ -57,7 +58,12 @@ namespace {
   }
 }
 
-//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+// need to declare the value of the static variable
+// outside of any function
+
+int BasicRunAction::GoodEventCount = 0;
+
+//
 
 int main(int argc,char** argv)
 {

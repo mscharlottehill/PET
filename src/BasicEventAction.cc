@@ -31,7 +31,6 @@
 #include "BasicAnalysis.hh"
 
 #include "G4RunManager.hh"
-#include "G4AccumulableManager.hh"
 #include "G4Event.hh"
 #include "G4SDManager.hh"
 #include "G4HCofThisEvent.hh"
@@ -111,8 +110,14 @@ void BasicEventAction::EndOfEventAction(const G4Event* event)
   // get deposited energy
   G4double dep = detHit->GetEdep();
 
+  // redefining a Good Event
+  G4double EnergyRes = 1.022*0.106;
+  G4double Threshold = (1.022 - EnergyRes)*MeV;
+  if (dep > Threshold) fRunAction->CountEvent();
+
   // count if full energy is deposited
-  if (dep == 1.022*MeV) fRunAction->CountEvent();
+//  if (dep > 1.0219*MeV) fRunAction->CountEvent();
+
 
 
   // Print per event (modulo n)
@@ -137,9 +142,7 @@ void BasicEventAction::EndOfEventAction(const G4Event* event)
   analysisManager->FillNtupleDColumn(1, detHit->GetTrackLength());
   analysisManager->AddNtupleRow();
 
-  G4int q = fRunAction->fGoodEvents.GetValue();
-  G4cout << "it is " << q << G4endl;
-  // IT IS COUNTING
-
-
 }
+
+// energy resolution for LSO is 10.6%
+// good event = edep > 89.4% of 1.022MeV
