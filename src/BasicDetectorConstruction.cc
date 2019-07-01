@@ -26,15 +26,9 @@
 
 #include "BasicDetectorConstruction.hh"
 #include "BasicPETSD.hh"
+
 #include "G4Material.hh"
 #include "G4NistManager.hh"
-/*
-#include "G4RotationMatrix.hh"
-#include "G4Transform3D.hh"
-#include "G4MultiFunctionalDetector.hh"
-#include "G4VPrimitiveScorer.hh"
-#include "G4PSDoseDeposit.hh"
-*/
 #include "G4Box.hh"
 #include "G4Tubs.hh"
 #include "G4LogicalVolume.hh"
@@ -45,6 +39,8 @@
 #include "G4PSEnergyDeposit.hh"
 
 #include "G4SDManager.hh"
+#include "G4GenericMessenger.hh"
+#include "G4RunManager.hh"
 
 #include "G4VisAttributes.hh"
 #include "G4Colour.hh"
@@ -60,14 +56,17 @@
 
 BasicDetectorConstruction::BasicDetectorConstruction()
  : G4VUserDetectorConstruction(),
-   fCheckOverlaps(true)
+   fCheckOverlaps(true), fMessenger(nullptr),
+   fDetectorLength(2.0*m), fDetectorThickness(5.*cm)
 {
+  // define commands for this class
+  DefineCommands();
 }
 
 //
 
 BasicDetectorConstruction::~BasicDetectorConstruction()
-{
+{ delete fMessenger;
 }
 
 //
@@ -109,7 +108,7 @@ G4VPhysicalVolume* BasicDetectorConstruction::DefineVolumes()
   G4Material* tube_mat   = nist->FindOrBuildMaterial("Lu2SiO5");
 
   // PET dimensions
-  G4double PET_in_rad = 0.4*m, PET_out_rad = 0.45*m, PET_length = 2.0*m; // vary these
+  G4double PET_in_rad = 40*cm, PET_out_rad = PET_in_rad + fDetectorThickness, PET_length = fDetectorLength; // vary these
 
   // world size
   G4double world_dim = 2.5*m;
@@ -163,17 +162,6 @@ new G4PVPlacement(0,                       // no rotation
                   0,                       // number
                   fCheckOverlaps);         // checking overlaps
 
-  //
-  // print parameters
-  //
-  G4cout
-    << G4endl
-    << "------------------------------------------------------------" << G4endl
-    << "---> The PET scanner has bore radius " << PET_in_rad/m << "m and is "
-    << PET_length/m << "m long."
-    << "------------------------------------------------------------" << G4endl;
-
-
   return physWorld;
 }
 
@@ -193,3 +181,59 @@ void BasicDetectorConstruction::ConstructSDandField()
 }
 
 //
+
+void BasicDetectorConstruction::SetDetectorLength(G4double length)
+{
+  fDetectorLength = length;
+  // tell G4RunManager that we change the geometry
+  G4RunManager::GetRunManager()->GeometryHasBeenModified();
+}
+
+//
+
+void BasicDetectorConstruction::SetDetectorThickness(G4double thickness)
+{
+  fDetectorThickness = thickness;
+  // tell G4RunManager that we change the geometry
+  G4RunManager::GetRunManager()->GeometryHasBeenModified();
+}
+
+void BasicDetectorConstruction::PrintDetectorGeometry()
+{
+  G4cout << " The detector is " << fDetectorLength/m << " m long with a "
+         << " thickness of " << fDetectorThickness/cm << " cm. " << G4endl;
+}
+
+//
+
+void BasicDetectorConstruction::DefineCommands()
+{
+  // Define /Basic/detector command directory using generic messenger class
+  fMessenger = new G4GenericMessenger(this,
+                                      "/Basic/detector/",
+                                      "Detector control");
+
+  // detLength command
+  auto& detLengthCmd
+    = fMessenger->DeclareMethodWithUnit("detLength","m",
+                                &BasicDetectorConstruction::SetDetectorLength,
+                                "Set length of the detector.");
+  detLengthCmd.SetParameterName("length", true);
+  detLengthCmd.SetRange("length>=0. && length<2.4");
+  detLengthCmd.SetDefaultValue("2.");
+
+  // detThickness command
+  auto& detThicknessCmd
+    = fMessenger->DeclareMethodWithUnit("detThickness","cm",
+                                &BasicDetectorConstruction::SetDetectorThickness,
+                                "Set thickness of the detector.");
+  detThicknessCmd.SetParameterName("thickness", true);
+  detThicknessCmd.SetRange("thickness>=0. && thickness<20.");
+  detThicknessCmd.SetDefaultValue("5.");
+
+  // for checking current geometry
+  auto& prtGeometryCmd
+    = fMessenger->DeclareMethod("printGeometry",
+                                &BasicDetectorConstruction::PrintDetectorGeometry,
+                                "Print parameters of the detector.");
+}

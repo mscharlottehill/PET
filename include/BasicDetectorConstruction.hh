@@ -33,6 +33,7 @@
 
 class G4VPhysicalVolume;
 class G4GlobalMagFieldMessenger;
+class G4GenericMessenger;
 
 
 class BasicDetectorConstruction : public G4VUserDetectorConstruction
@@ -41,18 +42,30 @@ class BasicDetectorConstruction : public G4VUserDetectorConstruction
     BasicDetectorConstruction();
     virtual ~BasicDetectorConstruction();
 
-  public:
     virtual G4VPhysicalVolume* Construct();
     virtual void ConstructSDandField();
+
+    void SetDetectorLength(G4double length);
+    G4double GetDetectorLength() { return fDetectorLength; }
+
+    void SetDetectorThickness(G4double thickness);
+    G4double GetDetectorThickness() { return fDetectorThickness; }
+
+    void PrintDetectorGeometry();
 
   private:
     // methods
     //
+    void DefineCommands();
     void DefineMaterials();
     G4VPhysicalVolume* DefineVolumes();
 
-
     G4bool  fCheckOverlaps; // option to activate checking of volumes overlaps
+
+    G4GenericMessenger* fMessenger;
+
+    G4double fDetectorLength;
+    G4double fDetectorThickness;
 };
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
