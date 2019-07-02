@@ -48,8 +48,8 @@ BasicRunAction::BasicRunAction()
   G4cout << "Using " << analysisManager->GetType() << G4endl;
 
   // Create directories
-  //analysisManager->SetHistoDirectoryName("histograms");
-  //analysisManager->SetNtupleDirectoryName("ntuple");
+  analysisManager->SetHistoDirectoryName("histograms");
+  analysisManager->SetNtupleDirectoryName("ntuple");
   analysisManager->SetVerboseLevel(1);
   analysisManager->SetNtupleMerging(true);
     // Note: merging ntuples is available only with Root output
@@ -74,15 +74,18 @@ BasicRunAction::~BasicRunAction()
 
 //
 
-void BasicRunAction::BeginOfRunAction(const G4Run*)
+void BasicRunAction::BeginOfRunAction(const G4Run* run)
 {
 
   // Get analysis manager
   auto analysisManager = G4AnalysisManager::Instance();
 
-  // Open an output file
-  //
-  G4String fileName = "BasicOut";
+  // Reset the GoodEvent counter
+  Reset();
+
+  // Open an output file featuring the runID
+  G4int runid = run->GetRunID();
+  G4String fileName = "BasicOut" + std::to_string(runid);
   analysisManager->OpenFile(fileName);
 
 }
@@ -96,10 +99,10 @@ void BasicRunAction::EndOfRunAction(const G4Run* run)
   if (nofEvents == 0) return;
 
   // print histogram statistics
-  //
+
   auto analysisManager = G4AnalysisManager::Instance();
   if ( analysisManager->GetH1(1) ) {
-    G4cout << G4endl << " ----> print histograms statistic ";
+  /*  G4cout << G4endl << " ----> print histograms statistic ";
     if(isMaster) {
       G4cout << "for the entire run " << G4endl << G4endl;
     }
@@ -116,7 +119,7 @@ void BasicRunAction::EndOfRunAction(const G4Run* run)
       << G4BestUnit(analysisManager->GetH1(1)->mean(), "Length")
       << " rms = "
       << G4BestUnit(analysisManager->GetH1(1)->rms(),  "Length") << G4endl;
-
+  */
 
     G4int goodEvents = GoodEventCount;
     G4double sensitivity = (G4double(goodEvents)/nofEvents) * 100;

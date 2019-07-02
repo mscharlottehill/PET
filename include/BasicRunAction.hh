@@ -40,6 +40,7 @@ class BasicRunAction : public G4UserRunAction
     virtual void BeginOfRunAction(const G4Run*);
     virtual void   EndOfRunAction(const G4Run*);
     void CountEvent()           { GoodEventCount += 1;};
+    void Reset()                { GoodEventCount = 0;};
 
   private:
     static int GoodEventCount;

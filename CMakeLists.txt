@@ -47,6 +47,7 @@ set(EXAMPLEEdMedPhC_SCRIPTS
   gui.mac
   init_vis.mac
   vis.mac
+  run.mac
   )
 
 foreach(_script ${EXAMPLEEdMedPhC_SCRIPTS})

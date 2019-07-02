@@ -86,12 +86,12 @@ void BasicEventAction::PrintEventStatistics(
      << G4endl;
 }
 
-//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+//
 
 void BasicEventAction::BeginOfEventAction(const G4Event* /*event*/)
 {}
 
-//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+//
 
 void BasicEventAction::EndOfEventAction(const G4Event* event)
 {
@@ -121,7 +121,7 @@ void BasicEventAction::EndOfEventAction(const G4Event* event)
 
 
   // Print per event (modulo n)
-  //
+  /*
   auto eventID = event->GetEventID();
   auto printModulo = G4RunManager::GetRunManager()->GetPrintProgress();
   if ( ( printModulo > 0 ) && ( eventID % printModulo == 0 ) ) {
@@ -130,6 +130,7 @@ void BasicEventAction::EndOfEventAction(const G4Event* event)
     PrintEventStatistics(
       dep, detHit->GetTrackLength());
   }
+  */
 
   // get analysis manager
   auto analysisManager = G4AnalysisManager::Instance();
