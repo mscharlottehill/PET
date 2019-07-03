@@ -65,6 +65,16 @@ void BasicPrimaryGeneratorAction::GeneratePrimaries(G4Event* anEvent)
   G4ThreeVector random = G4RandomDirection();
   G4ThreeVector photondir = random.unit();
 
+// For single positrons, uncomment this:
+
+  fParticleGun->SetParticleDefinition(particleTable->FindParticle(particleName="e+"));
+
+  fParticleGun->SetParticleEnergy(0*keV);
+  fParticleGun->SetParticlePosition(G4ThreeVector(x0,y0,z0));
+  fParticleGun->GeneratePrimaryVertex(anEvent);
+
+// For b2b photons, uncomment this:
+/*
   fParticleGun->SetParticleDefinition(particleTable->FindParticle(particleName="gamma"));
 
   // photon 1
@@ -80,6 +90,6 @@ void BasicPrimaryGeneratorAction::GeneratePrimaries(G4Event* anEvent)
   fParticleGun->SetParticlePosition(G4ThreeVector(x0,y0,z0));
   fParticleGun->SetParticleMomentumDirection(-photondir);
   fParticleGun->GeneratePrimaryVertex(anEvent);
-
+*/
 }
 //

@@ -115,13 +115,8 @@ void BasicEventAction::EndOfEventAction(const G4Event* event)
   G4double Threshold = (1.022 - EnergyRes)*MeV;
   if (dep > Threshold) fRunAction->CountEvent();
 
-  // count if full energy is deposited
-//  if (dep > 1.0219*MeV) fRunAction->CountEvent();
-
-
 
   // Print per event (modulo n)
-  /*
   auto eventID = event->GetEventID();
   auto printModulo = G4RunManager::GetRunManager()->GetPrintProgress();
   if ( ( printModulo > 0 ) && ( eventID % printModulo == 0 ) ) {
@@ -130,7 +125,7 @@ void BasicEventAction::EndOfEventAction(const G4Event* event)
     PrintEventStatistics(
       dep, detHit->GetTrackLength());
   }
-  */
+
 
   // get analysis manager
   auto analysisManager = G4AnalysisManager::Instance();

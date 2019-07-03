@@ -56,17 +56,15 @@
 
 BasicDetectorConstruction::BasicDetectorConstruction()
  : G4VUserDetectorConstruction(),
-   fCheckOverlaps(true), fMessenger(nullptr),
+   fCheckOverlaps(true),
    fDetectorLength(2.0*m), fDetectorThickness(5.*cm)
 {
-  // define commands for this class
-  DefineCommands();
 }
 
 //
 
 BasicDetectorConstruction::~BasicDetectorConstruction()
-{ delete fMessenger;
+{
 }
 
 //
@@ -146,7 +144,7 @@ G4VPhysicalVolume* BasicDetectorConstruction::DefineVolumes()
 
 // fill it with LSO
 
-G4LogicalVolume* logicTube =
+  G4LogicalVolume* logicTube =
   new G4LogicalVolume(solidTube,
                       tube_mat,
                       "Tube");
@@ -171,69 +169,12 @@ void BasicDetectorConstruction::ConstructSDandField()
 {
   G4SDManager::GetSDMpointer()->SetVerboseLevel(1);
 
-  //
-  // Sensitive detectors
-  //
+  // Sensitive detector
   auto detectorSD
     = new BasicPETSD("detectorSD", "DetectorHitsCollection");
   G4SDManager::GetSDMpointer()->AddNewDetector(detectorSD);
   SetSensitiveDetector("Tube",detectorSD);
+
 }
 
 //
-
-void BasicDetectorConstruction::SetDetectorLength(G4double length)
-{
-  fDetectorLength = length;
-  // tell G4RunManager that we change the geometry
-  G4RunManager::GetRunManager()->GeometryHasBeenModified();
-}
-
-//
-
-void BasicDetectorConstruction::SetDetectorThickness(G4double thickness)
-{
-  fDetectorThickness = thickness;
-  // tell G4RunManager that we change the geometry
-  G4RunManager::GetRunManager()->GeometryHasBeenModified();
-}
-
-void BasicDetectorConstruction::PrintDetectorGeometry()
-{
-  G4cout << " The detector is " << fDetectorLength/m << " m long with a "
-         << " thickness of " << fDetectorThickness/cm << " cm. " << G4endl;
-}
-
-//
-
-void BasicDetectorConstruction::DefineCommands()
-{
-  // Define /Basic/detector command directory using generic messenger class
-  fMessenger = new G4GenericMessenger(this,
-                                      "/Basic/detector/",
-                                      "Detector control");
-
-  // detLength command
-  auto& detLengthCmd
-    = fMessenger->DeclareMethodWithUnit("detLength","m",
-                                &BasicDetectorConstruction::SetDetectorLength,
-                                "Set length of the detector.");
-  detLengthCmd.SetParameterName("length", true);
-  detLengthCmd.SetRange("length>=0. && length<2.4");
-  detLengthCmd.SetDefaultValue("2.");
-
-  // detThickness command
-  auto& detThicknessCmd
-    = fMessenger->DeclareMethodWithUnit("detThickness","cm",
-                                &BasicDetectorConstruction::SetDetectorThickness,
-                                "Set thickness of the detector.");
-  detThicknessCmd.SetParameterName("thickness", true);
-  detThicknessCmd.SetRange("thickness>=0. && thickness<20.");
-  detThicknessCmd.SetDefaultValue("5.");
-
-  // for checking current geometry
-  auto& prtGeometryCmd
-    = fMessenger->DeclareMethod("printGeometry",
-                                &BasicDetectorConstruction::PrintDetectorGeometry,
-                                "Print parameters of the detector.");
-}

@@ -38,8 +38,8 @@
 BasicRunAction::BasicRunAction()
  : G4UserRunAction()
 {
-  // set printing event number per each event
-  G4RunManager::GetRunManager()->SetPrintProgress(1);
+  // set printing run number only
+  G4RunManager::GetRunManager()->SetPrintProgress(0);
 
   // Create analysis manager
   // The choice of analysis technology is done via selection of a namespace
@@ -55,8 +55,8 @@ BasicRunAction::BasicRunAction()
     // Note: merging ntuples is available only with Root output
 
   // Creating histograms
-  analysisManager->CreateH1("Energy","Energy Deposited", 1000, 0.,1.25*MeV);
-  analysisManager->CreateH1("Length","Track Length in Detector", 100, 0., 1.0*mm);
+  analysisManager->CreateH1("Energy","Energy Deposited", 50, 0.,1.25*MeV);
+  analysisManager->CreateH1("Length","Track Length in Detector", 50, 0., 1.0*mm);
 
   // Creating ntuple
   analysisManager->CreateNtuple("Basic", "Edep spacial distribution");
@@ -102,7 +102,7 @@ void BasicRunAction::EndOfRunAction(const G4Run* run)
 
   auto analysisManager = G4AnalysisManager::Instance();
   if ( analysisManager->GetH1(1) ) {
-  /*  G4cout << G4endl << " ----> print histograms statistic ";
+    G4cout << G4endl << " ----> print histograms statistic ";
     if(isMaster) {
       G4cout << "for the entire run " << G4endl << G4endl;
     }
@@ -119,13 +119,13 @@ void BasicRunAction::EndOfRunAction(const G4Run* run)
       << G4BestUnit(analysisManager->GetH1(1)->mean(), "Length")
       << " rms = "
       << G4BestUnit(analysisManager->GetH1(1)->rms(),  "Length") << G4endl;
-  */
+
 
     G4int goodEvents = GoodEventCount;
     G4double sensitivity = (G4double(goodEvents)/nofEvents) * 100;
 
     G4cout << " Good events: " << goodEvents << G4endl;
-    G4cout << " Crude sensitivity: " << sensitivity << " per cent" << G4endl;
+    G4cout << " Crude sensitivity: " << std::setprecision(5) << sensitivity << " per cent" << G4endl;
 
   }
 
