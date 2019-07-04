@@ -56,8 +56,8 @@
 
 BasicDetectorConstruction::BasicDetectorConstruction()
  : G4VUserDetectorConstruction(),
-   fCheckOverlaps(true),
-   fDetectorLength(2.0*m), fDetectorThickness(5.*cm)
+   fCheckOverlaps(true)
+//   fDetectorLength(2.0*m), fDetectorThickness(5.*cm)
 {
 }
 
@@ -106,7 +106,7 @@ G4VPhysicalVolume* BasicDetectorConstruction::DefineVolumes()
   G4Material* tube_mat   = nist->FindOrBuildMaterial("Lu2SiO5");
 
   // PET dimensions
-  G4double PET_in_rad = 40*cm, PET_out_rad = PET_in_rad + fDetectorThickness, PET_length = fDetectorLength; // vary these
+  G4double PET_in_rad = 40*cm, PET_out_rad = PET_in_rad + CrystLength*cm, PET_length = DetLength*m; // vary these
 
   // world size
   G4double world_dim = 2.5*m;

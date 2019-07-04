@@ -30,11 +30,14 @@
 #include "G4UserRunAction.hh"
 #include "globals.hh"
 
+class BasicDetectorConstruction;
+
 
 class BasicRunAction : public G4UserRunAction
 {
   public:
     BasicRunAction();
+  //  BasicRunAction(BasicDetectorConstruction* detConst);
     virtual ~BasicRunAction();
 
     virtual void BeginOfRunAction(const G4Run*);
@@ -44,6 +47,9 @@ class BasicRunAction : public G4UserRunAction
 
   private:
     static int GoodEventCount;
+    static double DetLength;
+    static double CrystLength;
+  //  BasicDetectorConstruction* fDetConst;
 };
 
 //

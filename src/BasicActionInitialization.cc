@@ -28,6 +28,7 @@
 #include "BasicPrimaryGeneratorAction.hh"
 #include "BasicRunAction.hh"
 #include "BasicEventAction.hh"
+//#include "BasicDetectorConstruction.hh"
 
 //
 
@@ -51,6 +52,7 @@ void BasicActionInitialization::BuildForMaster() const
 
 void BasicActionInitialization::Build() const
 {
+
   BasicRunAction* runAction = new BasicRunAction();
   SetUserAction(runAction);
 

@@ -26,6 +26,7 @@
 
 #include "BasicRunAction.hh"
 #include "BasicAnalysis.hh"
+#include "BasicDetectorConstruction.hh"
 
 #include "G4Run.hh"
 #include "G4RunManager.hh"
@@ -37,6 +38,8 @@
 
 BasicRunAction::BasicRunAction()
  : G4UserRunAction()
+//   fDetConst(detConst)
+
 {
   // set printing run number only
   G4RunManager::GetRunManager()->SetPrintProgress(0);
@@ -126,6 +129,14 @@ void BasicRunAction::EndOfRunAction(const G4Run* run)
 
     G4cout << " Good events: " << goodEvents << G4endl;
     G4cout << " Crude sensitivity: " << std::setprecision(5) << sensitivity << " per cent" << G4endl;
+
+    G4double length = DetLength;
+    G4double thickness = CrystLength;
+
+    std::ofstream myfile;
+    myfile.open("data.csv", std::ofstream::app);
+    myfile << std::to_string(length)+", "+std::to_string(thickness)+", "+std::to_string(sensitivity) +"\n";
+    myfile.close();
 
   }
 

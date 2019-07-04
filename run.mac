@@ -1,0 +1,108 @@
+# Macro file for Basic data collection
+#
+# Initialize kernel
+/run/initialize
+#
+# Defaults:
+# Length: 2m, thickness: 5cm
+#
+# Minimise verbosity
+/control/verbose 0
+/analysis/verbose 0
+/process/verbose 0
+/particle/verbose 0
+/material/verbose 0
+/event/verbose 0
+/run/verbose 0
+# first disable the visualisation
+# to reduce runtime
+/vis/disable
+/tracking/storeTrajectory 0
+# first change the geometry
+# then run for many events
+# start with the default geometry:
+# l = 2m
+/run/beamOn 1000000
+/Basic/detector/printGeometry
+# l = 1.95m
+/Basic/detector/detLength 1.95 m
+/run/beamOn 1000000
+/Basic/detector/printGeometry
+# l = 1.9m
+/Basic/detector/detLength 1.9 m
+/run/beamOn 1000000
+/Basic/detector/printGeometry
+# l = 1.85m
+/Basic/detector/detLength 1.85 m
+/run/beamOn 1000000
+/Basic/detector/printGeometry
+# l = 1.8m
+/Basic/detector/detLength 1.8 m
+/run/beamOn 1000000
+/Basic/detector/printGeometry
+# l = 1.75m
+/Basic/detector/detLength 1.75 m
+/run/beamOn 1000000
+/Basic/detector/printGeometry
+# l = 1.7m
+/Basic/detector/detLength 1.7 m
+/run/beamOn 1000000
+/Basic/detector/printGeometry
+# l = 1.65m
+/Basic/detector/detLength 1.65 m
+/run/beamOn 1000000
+/Basic/detector/printGeometry
+# l = 1.6m
+/Basic/detector/detLength 1.6 m
+/run/beamOn 1000000
+/Basic/detector/printGeometry
+# l = 1.55m
+/Basic/detector/detLength 1.55 m
+/run/beamOn 1000000
+/Basic/detector/printGeometry
+# l = 1.5m
+/Basic/detector/detLength 1.5 m
+/run/beamOn 1000000
+/Basic/detector/printGeometry
+# l = 1.45m
+/Basic/detector/detLength 1.45 m
+/run/beamOn 1000000
+/Basic/detector/printGeometry
+# l = 1.4m
+/Basic/detector/detLength 1.4 m
+/run/beamOn 1000000
+/Basic/detector/printGeometry
+# l = 1.35m
+/Basic/detector/detLength 1.35 m
+/run/beamOn 1000000
+/Basic/detector/printGeometry
+# l = 1.3m
+/Basic/detector/detLength 1.3 m
+/run/beamOn 1000000
+/Basic/detector/printGeometry
+# l = 1.25m
+/Basic/detector/detLength 1.25 m
+/run/beamOn 1000000
+/Basic/detector/printGeometry
+# l = 1.2m
+/Basic/detector/detLength 1.2 m
+/run/beamOn 1000000
+/Basic/detector/printGeometry
+# l = 1.15m
+/Basic/detector/detLength 1.15 m
+/run/beamOn 1000000
+/Basic/detector/printGeometry
+# l = 1.1m
+/Basic/detector/detLength 1.1 m
+/run/beamOn 1000000
+/Basic/detector/printGeometry
+# l = 1.05m
+/Basic/detector/detLength 1.05 m
+/run/beamOn 1000000
+/Basic/detector/printGeometry
+# l = 1.0m
+/Basic/detector/detLength 1.0 m
+/run/beamOn 1000000
+/Basic/detector/printGeometry
+# finished
+exit

@@ -63,6 +63,14 @@ namespace {
 
 int BasicRunAction::GoodEventCount = 0;
 
+double lgth = 2.0;
+double thck = 5.0;
+
+double BasicRunAction::DetLength = lgth, BasicDetectorConstruction::DetLength = lgth;
+double BasicRunAction::CrystLength = thck, BasicDetectorConstruction::CrystLength = thck;
+//double BasicDetectorConstruction::DetLength = lgth;
+//double BasicDetectorConstruction::CrystLength = thck;
+
 //
 
 int main(int argc,char** argv)
