@@ -22,11 +22,7 @@
 // * use  in  resulting  scientific  publications,  and indicate your *
 // * acceptance of all terms of the Geant4 Software license.          *
 // ********************************************************************
-//
-// $Id: exampleBasic.cc 100946 2016-11-03 11:28:08Z gcosmo $
-//
-/// \file exampleBasic.cc
-/// \brief Main program of the Basic example
+
 
 #include "BasicDetectorConstruction.hh"
 #include "BasicActionInitialization.hh"
@@ -63,13 +59,14 @@ namespace {
 
 int BasicRunAction::GoodEventCount = 0;
 
-double lgth = 2.0;
-double thck = 5.0;
+
+// quickest way to change every instance
+// of these values at once
+double lgth = 1.95;
+double thck = 2.76;
 
 double BasicRunAction::DetLength = lgth, BasicDetectorConstruction::DetLength = lgth;
 double BasicRunAction::CrystLength = thck, BasicDetectorConstruction::CrystLength = thck;
-//double BasicDetectorConstruction::DetLength = lgth;
-//double BasicDetectorConstruction::CrystLength = thck;
 
 //
 

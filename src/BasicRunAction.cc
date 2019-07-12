@@ -105,7 +105,7 @@ void BasicRunAction::EndOfRunAction(const G4Run* run)
 
   auto analysisManager = G4AnalysisManager::Instance();
   if ( analysisManager->GetH1(1) ) {
-    G4cout << G4endl << " ----> print histograms statistic ";
+/*    G4cout << G4endl << " ----> print histograms statistic ";
     if(isMaster) {
       G4cout << "for the entire run " << G4endl << G4endl;
     }
@@ -122,20 +122,21 @@ void BasicRunAction::EndOfRunAction(const G4Run* run)
       << G4BestUnit(analysisManager->GetH1(1)->mean(), "Length")
       << " rms = "
       << G4BestUnit(analysisManager->GetH1(1)->rms(),  "Length") << G4endl;
-
+*/
 
     G4int goodEvents = GoodEventCount;
     G4double sensitivity = (G4double(goodEvents)/nofEvents) * 100;
 
+    G4cout << " Detector length: " << DetLength << " m " << G4endl;
+    G4cout << " Crystal length: " << CrystLength << " cm " << G4endl;
     G4cout << " Good events: " << goodEvents << G4endl;
-    G4cout << " Crude sensitivity: " << std::setprecision(5) << sensitivity << " per cent" << G4endl;
+    G4cout << " Crude sensitivity: " << std::setprecision(5) << sensitivity << " per cent " << G4endl;
 
-    G4double length = DetLength;
-    G4double thickness = CrystLength;
 
     std::ofstream myfile;
-    myfile.open("data.csv", std::ofstream::app);
-    myfile << std::to_string(length)+", "+std::to_string(thickness)+", "+std::to_string(sensitivity) +"\n";
+    myfile.open("RandData.csv", std::ofstream::app);
+    //myfile << std::to_string(CrystLength)+", "+std::to_string(sensitivity) +"\n";
+    myfile << std::to_string(DetLength)+", "+std::to_string(CrystLength)+", "+std::to_string(sensitivity) +"\n";
     myfile.close();
 
   }
