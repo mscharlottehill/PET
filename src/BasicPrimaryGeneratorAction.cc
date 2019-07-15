@@ -31,6 +31,7 @@
 #include "G4ParticleTable.hh"
 #include "G4ParticleDefinition.hh"
 #include "G4SystemOfUnits.hh"
+#include "G4PhysicalConstants.hh"
 #include "Randomize.hh"
 #include "G4RandomDirection.hh"
 
@@ -58,12 +59,17 @@ void BasicPrimaryGeneratorAction::GeneratePrimaries(G4Event* anEvent)
 {
   G4ParticleTable* particleTable = G4ParticleTable::GetParticleTable();
   G4String particleName;
-
+/*
   // get a vertex
   G4double x0  = 0*cm, y0  = 0*cm, z0  = 0*cm;
 
   G4ThreeVector random = G4RandomDirection();
   G4ThreeVector photondir = random.unit();
+*/
+  // generating a random point in the cylindrical volume
+  G4double theta = G4UniformRand()*twopi;
+  G4double z_coord = (G4UniformRand()*1.63) - 0.815;
+  G4double x0 = 0.175*cos(theta)*m, y0 = 0.175*sin(theta)*m, z0 = z_coord*m;
 
 // For single positrons, uncomment this:
 

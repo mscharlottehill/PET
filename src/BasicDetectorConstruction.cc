@@ -160,6 +160,33 @@ new G4PVPlacement(0,                       // no rotation
                   0,                       // number
                   fCheckOverlaps);         // checking overlaps
 
+// make a patient
+
+G4double patient_radius = 17.5*cm;
+G4double patient_length = 1.63*m;
+G4Material* patient_mat = nist->FindOrBuildMaterial("G4_WATER");
+
+G4Tubs* solidPatient =
+  new G4Tubs("Patient", 0., patient_radius, 0.5*patient_length, 0., twopi);
+
+G4LogicalVolume* logicPatient =
+  new G4LogicalVolume(solidPatient,        //its solid
+                      patient_mat,         //its material
+                      "PatientLV");        //its name
+
+// place patient in world
+
+new G4PVPlacement(0,                       //no rotation
+                  G4ThreeVector(),         //at (0,0,0)
+                  logicPatient,            //its logical volume
+                  "Patient",               //its name
+                  logicWorld,              //its mother  volume
+                  false,                   //no boolean operation
+                  0,                       //copy number
+                  fCheckOverlaps);         // checking overlaps
+
+
+
   return physWorld;
 }
 
