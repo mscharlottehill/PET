@@ -75,11 +75,30 @@ G4bool BasicPETSD::ProcessHits(G4Step* step,
   // energy deposit
   auto edep = step->GetTotalEnergyDeposit();
 
-  if(0.0 < edep) {
+  auto analysisManager = G4AnalysisManager::Instance();
 
-    G4ThreeVector p1 = step->GetPreStepPoint()->GetPosition();
-    G4ThreeVector p2 = step->GetPostStepPoint()->GetPosition();
+  auto type = step->GetTrack()->GetParticleDefinition()->GetParticleName();
+
+  // to record hit positions
+  // if the patient is also declared as an SD then the
+  // material for the step could be verified as LSO
+
+  if(step->IsFirstStepInVolume() && type=="gamma") {
+  /*  auto curr_ke = step->GetTrack->GetKineticEnergy();
+    if(curr_ke < 511*keV) {
+      // find scatter fraction
+    } */
+    G4ThreeVector p1 = step->GetPreStepPoint()->GetPosition(); // coord of entry to crystal
+    G4double z1 = p1.z(); // z coord
+    analysisManager->FillH1(2,z1);
+    if(step->GetTrack()->GetTrackID()==2) {
+      analysisManager->FillNtupleDColumn(2, z1);
+    }
+    else {
+      analysisManager->FillNtupleDColumn(3, z1);
+    }
   }
+
   // step length
   G4double stepLength = 0.;
   if ( step->GetTrack()->GetDefinition()->GetPDGCharge() != 0. ) {

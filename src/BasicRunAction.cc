@@ -51,8 +51,8 @@ BasicRunAction::BasicRunAction()
   G4cout << "Using " << analysisManager->GetType() << G4endl;
 
   // Create directories
-  analysisManager->SetHistoDirectoryName("histograms");
-  analysisManager->SetNtupleDirectoryName("ntuple");
+//  analysisManager->SetHistoDirectoryName("histograms");
+//  analysisManager->SetNtupleDirectoryName("ntuple");
   analysisManager->SetVerboseLevel(1);
   analysisManager->SetNtupleMerging(true);
     // Note: merging ntuples is available only with Root output
@@ -60,11 +60,14 @@ BasicRunAction::BasicRunAction()
   // Creating histograms
   analysisManager->CreateH1("Energy","Energy Deposited", 50, 0.,1.25*MeV);
   analysisManager->CreateH1("Length","Track Length in Detector", 50, 0., 1.0*mm);
+  analysisManager->CreateH1("Z Pos", "Z Position of Hits in Detector", 50, -1.0*m, 1.0*m);
 
   // Creating ntuple
   analysisManager->CreateNtuple("Basic", "Edep spacial distribution");
   analysisManager->CreateNtupleDColumn("Edep");
   analysisManager->CreateNtupleDColumn("TrackLength");
+  analysisManager->CreateNtupleDColumn("ZPos1");
+  analysisManager->CreateNtupleDColumn("ZPos2");
   analysisManager->FinishNtuple();
 }
 
