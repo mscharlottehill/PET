@@ -57,7 +57,6 @@
 BasicDetectorConstruction::BasicDetectorConstruction()
  : G4VUserDetectorConstruction(),
    fCheckOverlaps(true)
-//   fDetectorLength(2.0*m), fDetectorThickness(5.*cm)
 {
 }
 
@@ -196,11 +195,18 @@ void BasicDetectorConstruction::ConstructSDandField()
 {
   G4SDManager::GetSDMpointer()->SetVerboseLevel(1);
 
-  // Sensitive detector
+  // Sensitive detector: PET scanner
   auto detectorSD
     = new BasicPETSD("detectorSD", "DetectorHitsCollection");
   G4SDManager::GetSDMpointer()->AddNewDetector(detectorSD);
   SetSensitiveDetector("Tube",detectorSD);
+
+  // Sensitive detector: patient
+  // for scatter fraction and/or dose
+  auto patientSD
+    = new BasicPETSD("patientSD", "PatientHitsCollection");
+    G4SDManager::GetSDMpointer()->AddNewDetector(patientSD);
+    SetSensitiveDetector("PatientLV",patientSD);
 
 }
 

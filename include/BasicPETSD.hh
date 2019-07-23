@@ -59,6 +59,6 @@ class BasicPETSD : public G4VSensitiveDetector
     BasicPETHitsCollection* fHitsCollection;
 };
 
-//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+//
 
 #endif

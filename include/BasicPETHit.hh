@@ -62,20 +62,20 @@ class BasicPETHit : public G4VHit
     G4double GetZpos() const;
 
   private:
-    G4double fEdep;        ///< Energy deposit in the sensitive volume
-    G4double fTrackLength; ///< Track length in the  sensitive volume
+    G4double fEdep;        /// Energy deposit in the sensitive volume
+    G4double fTrackLength; /// Track length in the  sensitive volume
     G4double fXpos;
     G4double fYpos;
     G4double fZpos;
 };
 
-//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+//
 
 using BasicPETHitsCollection = G4THitsCollection<BasicPETHit>;
 
 extern G4ThreadLocal G4Allocator<BasicPETHit>* BasicPETHitAllocator;
 
-//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+//
 
 inline void* BasicPETHit::operator new(size_t)
 {
@@ -108,6 +108,6 @@ inline G4double BasicPETHit::GetTrackLength() const {
   return fTrackLength;
 }
 
-//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+//
 
 #endif

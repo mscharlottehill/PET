@@ -38,7 +38,6 @@
 
 BasicRunAction::BasicRunAction()
  : G4UserRunAction()
-//   fDetConst(detConst)
 
 {
   // set printing run number only
@@ -86,10 +85,11 @@ void BasicRunAction::BeginOfRunAction(const G4Run* run)
   // Get analysis manager
   auto analysisManager = G4AnalysisManager::Instance();
 
-  // Reset the GoodEvent counter
+  // Reset the counters
   Reset();
 
   // Open an output file featuring the runID
+  // useful for multiple runs in one execution
   G4int runid = run->GetRunID();
   G4String fileName = "BasicOut" + std::to_string(runid);
   analysisManager->OpenFile(fileName);
@@ -104,49 +104,33 @@ void BasicRunAction::EndOfRunAction(const G4Run* run)
   G4int nofEvents = run->GetNumberOfEvent();
   if (nofEvents == 0) return;
 
-  // print histogram statistics
 
   auto analysisManager = G4AnalysisManager::Instance();
   if ( analysisManager->GetH1(1) ) {
-/*    G4cout << G4endl << " ----> print histograms statistic ";
-    if(isMaster) {
-      G4cout << "for the entire run " << G4endl << G4endl;
-    }
-    else {
-      G4cout << "for the local thread " << G4endl << G4endl;
-    }
 
-    G4cout << " Energy deposited : mean = "
-       << G4BestUnit(analysisManager->GetH1(0)->mean(), "Energy")
-       << " rms = "
-       << G4BestUnit(analysisManager->GetH1(0)->rms(),  "Energy") << G4endl;
+    G4double sensitivity = (G4double(GoodEventCount)/nofEvents) * 100;
 
-    G4cout << " Length of radiation interaction : mean = "
-      << G4BestUnit(analysisManager->GetH1(1)->mean(), "Length")
-      << " rms = "
-      << G4BestUnit(analysisManager->GetH1(1)->rms(),  "Length") << G4endl;
-*/
-
-    G4int goodEvents = GoodEventCount;
-    G4double sensitivity = (G4double(goodEvents)/nofEvents) * 100;
+    G4double scatterfrac = (G4double(ScatterCount)/G4double(DetCount)) * 100;
 
     G4cout << " Detector length: " << DetLength << " m " << G4endl;
     G4cout << " Crystal length: " << CrystLength << " cm " << G4endl;
-    G4cout << " Good events: " << goodEvents << G4endl;
+    G4cout << " Good events: " << GoodEventCount << G4endl;
+    G4cout << " Scattered events: " << ScatterCount << G4endl;
     G4cout << " Crude sensitivity: " << std::setprecision(5) << sensitivity << " per cent " << G4endl;
+    G4cout << " Scatter fraction: " << std::setprecision(5) << scatterfrac << " per cent " << G4endl;
 
 
     std::ofstream myfile;
-    myfile.open("RandData.csv", std::ofstream::app);
-    //myfile << std::to_string(CrystLength)+", "+std::to_string(sensitivity) +"\n";
-    myfile << std::to_string(DetLength)+", "+std::to_string(CrystLength)+", "+std::to_string(sensitivity) +"\n";
+    myfile.open("Data.csv", std::ofstream::app);
+    // ready to write out are: DetLength, CrystLength, scatterfrac and sensitivity
+    // it's advisable to write out the useful data to a csv file using the format below
+    myfile << std::to_string(DetLength)+", "+std::to_string(scatterfrac)+", "+std::to_string(sensitivity) +"\n";
     myfile.close();
 
   }
 
 
   // save histograms & ntuple
-  //
   analysisManager->Write();
   analysisManager->CloseFile();
 }

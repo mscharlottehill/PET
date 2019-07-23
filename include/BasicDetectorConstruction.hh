@@ -43,12 +43,6 @@ class BasicDetectorConstruction : public G4VUserDetectorConstruction
     virtual G4VPhysicalVolume* Construct();
     virtual void ConstructSDandField();
 
-  //  void SetDetectorLength(G4double length);
-  //  G4double GetDetectorLength() { return fDetectorLength; }
-
-  //  void SetDetectorThickness(G4double thickness);
-  //  G4double GetDetectorThickness() { return fDetectorThickness; }
-
 
   private:
     // methods
@@ -58,13 +52,15 @@ class BasicDetectorConstruction : public G4VUserDetectorConstruction
 
     G4bool  fCheckOverlaps; // option to activate checking of volumes overlaps
 
+    // setting these as static variables
+    // allows them to be accessed from other classes with ease
     static double DetLength;
     static double CrystLength;
+    // their values are set in main() and never changed
+    // so it's unlikely for this to cause any problems
 
-  //  G4double fDetectorLength;
-  //  G4double fDetectorThickness;
 };
 
-//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+//
 
 #endif

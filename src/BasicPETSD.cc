@@ -79,19 +79,20 @@ G4bool BasicPETSD::ProcessHits(G4Step* step,
 
   auto type = step->GetTrack()->GetParticleDefinition()->GetParticleName();
 
-  // to record hit positions
-  // if the patient is also declared as an SD then the
-  // material for the step could be verified as LSO
+  auto material = step->GetTrack()->GetMaterial()->GetName();
 
-  if(step->IsFirstStepInVolume() && type=="gamma") {
-  /*  auto curr_ke = step->GetTrack->GetKineticEnergy();
-    if(curr_ke < 511*keV) {
-      // find scatter fraction
-    } */
+  auto trackid = step->GetTrack()->GetTrackID();
+
+  // to record hit positions entering the detector
+  // NOTE: if the source is changed, the trackid will need to be changed
+  // at the moment, if the source is a single photon it has trackid 1
+  // and the secondaries are 2 photons with trackids 2 and 3
+
+  if(step->IsFirstStepInVolume() && type=="gamma" && material=="Lu2SiO5") {
     G4ThreeVector p1 = step->GetPreStepPoint()->GetPosition(); // coord of entry to crystal
     G4double z1 = p1.z(); // z coord
     analysisManager->FillH1(2,z1);
-    if(step->GetTrack()->GetTrackID()==2) {
+    if(trackid==2) {
       analysisManager->FillNtupleDColumn(2, z1);
     }
     else {

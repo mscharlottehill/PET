@@ -37,19 +37,25 @@ class BasicRunAction : public G4UserRunAction
 {
   public:
     BasicRunAction();
-  //  BasicRunAction(BasicDetectorConstruction* detConst);
+
     virtual ~BasicRunAction();
 
     virtual void BeginOfRunAction(const G4Run*);
     virtual void   EndOfRunAction(const G4Run*);
     void CountEvent()           { GoodEventCount += 1;};
-    void Reset()                { GoodEventCount = 0;};
+    void CountScatter()         { ScatterCount += 1;};
+    void CountDetection()       { DetCount += 1;};
+    void Reset()                { GoodEventCount = 0;
+                                ScatterCount = 0;
+                                DetCount = 0;};
 
   private:
     static int GoodEventCount;
+    static int ScatterCount;
+    static int DetCount;
     static double DetLength;
     static double CrystLength;
-  //  BasicDetectorConstruction* fDetConst;
+
 };
 
 //

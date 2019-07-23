@@ -60,21 +60,24 @@ void BasicPrimaryGeneratorAction::GeneratePrimaries(G4Event* anEvent)
   G4ParticleTable* particleTable = G4ParticleTable::GetParticleTable();
   G4String particleName;
 
-  // get a vertex
-//  G4double x0  = 0*cm, y0  = 0*cm, z0  = 0*cm;
+  // for a point source at the origin, uncomment this:
+/*  G4double x0  = 0*cm, y0  = 0*cm, z0  = 0*cm; */
 
-  G4ThreeVector random = G4RandomDirection();
-  G4ThreeVector photondir = random.unit();
-
-  // generating a random point in the cylindrical volume
+  // for a uniform cylindrical patient source, uncomment this:
   G4double theta = G4UniformRand()*twopi;
   G4double z_coord = (G4UniformRand()*1.63) - 0.815;
   G4double x0 = 0.175*cos(theta)*m, y0 = 0.175*sin(theta)*m, z0 = z_coord*m;
+  // note that this has the patient geometry hard coded
+  // for a different patient:
+  // z_coord = (G4UR*length) - halflength
+  // x0 = rcos(theta), y0 = rsin(theta)
 
-// For single positrons, uncomment this:
+  // find a random direction for the particle momentum
+  G4ThreeVector random = G4RandomDirection();
+  G4ThreeVector photondir = random.unit();
 
+  // For single positrons, uncomment this:
   fParticleGun->SetParticleDefinition(particleTable->FindParticle(particleName="e+"));
-
   fParticleGun->SetParticleEnergy(0*keV);
   fParticleGun->SetParticlePosition(G4ThreeVector(x0,y0,z0));
   fParticleGun->GeneratePrimaryVertex(anEvent);

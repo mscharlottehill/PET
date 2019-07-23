@@ -44,7 +44,8 @@
 BasicEventAction::BasicEventAction(BasicRunAction* runAction)
  : G4UserEventAction(),
    fRunAction(runAction),
-   fDetHCID(-1)
+   fDetHCID(-1),
+   fPatHCID(-1)
 {}
 
 //
@@ -96,24 +97,37 @@ void BasicEventAction::BeginOfEventAction(const G4Event* /*event*/)
 void BasicEventAction::EndOfEventAction(const G4Event* event)
 {
   // Get hits collections IDs (only once)
-  if ( fDetHCID == -1 ) {
+  if ( fDetHCID == -1 && fPatHCID == -1) {
     fDetHCID
       = G4SDManager::GetSDMpointer()->GetCollectionID("DetectorHitsCollection");
+    fPatHCID
+      = G4SDManager::GetSDMpointer()->GetCollectionID("PatientHitsCollection");
   }
 
   // Get hits collections
   auto detHC = GetHitsCollection(fDetHCID, event);
+  auto patHC = GetHitsCollection(fPatHCID, event);
 
   // Get hit with total values
   auto detHit = (*detHC)[detHC->entries()-1];
+  auto patHit = (*patHC)[patHC->entries()-1];
 
   // get deposited energy
   G4double dep = detHit->GetEdep();
 
-  // redefining a Good Event
+  // defining a Good Event
   G4double EnergyRes = 1.022*0.106;
   G4double Threshold = (1.022 - EnergyRes)*MeV;
   if (dep > Threshold) fRunAction->CountEvent();
+
+  // to calculate scatter fraction we need
+  // to know how many photons are deposited
+  if (dep > 0) {
+    fRunAction->CountDetection();
+    // any energy deposited in the patient implies scattering
+    G4double patEdep = patHit->GetEdep();
+    if (patEdep > 0.) fRunAction->CountScatter();
+  }
 
 
   // Print per event (modulo n)

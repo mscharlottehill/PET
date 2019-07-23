@@ -54,16 +54,17 @@ namespace {
   }
 }
 
-// need to declare the value of the static variable
+// need to declare the value of the static variables
 // outside of any function
-
 int BasicRunAction::GoodEventCount = 0;
+int BasicRunAction::ScatterCount = 0;
+int BasicRunAction::DetCount = 0;
 
 
 // quickest way to change every instance
 // of these values at once
 double lgth = 1.95;
-double thck = 2.76;
+double thck = 4.76;
 
 double BasicRunAction::DetLength = lgth, BasicDetectorConstruction::DetLength = lgth;
 double BasicRunAction::CrystLength = thck, BasicDetectorConstruction::CrystLength = thck;
