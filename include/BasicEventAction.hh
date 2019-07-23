@@ -29,7 +29,6 @@
 #include "G4UserEventAction.hh"
 #include "BasicPETHit.hh"
 #include "globals.hh"
-//#include "BasicRunAction.hh"
 
 class BasicRunAction;
 
@@ -42,8 +41,6 @@ public:
 
   virtual void  BeginOfEventAction(const G4Event* event);
   virtual void    EndOfEventAction(const G4Event* event);
-
-  //BasicRunAction*  fRunAction;
 
 private:
   // methods
