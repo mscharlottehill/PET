@@ -57,7 +57,6 @@
 BasicDetectorConstruction::BasicDetectorConstruction()
  : G4VUserDetectorConstruction(),
    fCheckOverlaps(true)
-//   fDetectorLength(2.0*m), fDetectorThickness(5.*cm)
 {
 }
 
