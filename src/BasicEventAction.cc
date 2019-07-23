@@ -110,7 +110,7 @@ void BasicEventAction::EndOfEventAction(const G4Event* event)
   // get deposited energy
   G4double dep = detHit->GetEdep();
 
-  // redefining a Good Event
+  // defining a Good Event
   G4double EnergyRes = 1.022*0.106;
   G4double Threshold = (1.022 - EnergyRes)*MeV;
   if (dep > Threshold) fRunAction->CountEvent();
