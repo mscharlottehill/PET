@@ -69,13 +69,13 @@ class BasicPETHit : public G4VHit
     G4double fZpos;
 };
 
-//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+//
 
 using BasicPETHitsCollection = G4THitsCollection<BasicPETHit>;
 
 extern G4ThreadLocal G4Allocator<BasicPETHit>* BasicPETHitAllocator;
 
-//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+//
 
 inline void* BasicPETHit::operator new(size_t)
 {
