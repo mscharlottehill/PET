@@ -44,7 +44,6 @@ target_link_libraries(Basic_exe ${Geant4_LIBRARIES})
 # relies on these scripts being in the current working directory.
 #
 set(EXAMPLEEdMedPhC_SCRIPTS
-  gui.mac
   init_vis.mac
   vis.mac
   run.mac
