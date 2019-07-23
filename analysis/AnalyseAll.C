@@ -1,16 +1,13 @@
 /*
+ Based on code provided by:
+  gary.smith@ed.ac.uk
+  3rd July 2019
 
- Example using root:
- reading from CSV file,
- writing to root file,
- reading from a TTree,
- and plotting a TGraph.
-
- gary.smith@ed.ac.uk
- 3rd July 2019
-
- To run do (e.g.)
- $ root AnalyseCSV.C
+ Assumed filename: 
+ 'AllData.csv'
+ 
+ To run:
+ $ root AnalyseAll.C 
 
 */
 
