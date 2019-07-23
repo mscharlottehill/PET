@@ -13,4 +13,5 @@ IF CHANGING THE GEOMETRY: Detector geometry should be changed in BasicPET.cc.
                           Patient geometry should be changed in BasicDetectorConstruction.cc.
                           If patient geometry is changed, source geometry must be changed - it is hard coded in
                           BasicPrimaryGeneratorAction.cc.
-                          
+                       
+GEANT4 basic examples and EdMedPhc code used as templates.
