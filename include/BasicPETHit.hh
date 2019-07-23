@@ -108,6 +108,6 @@ inline G4double BasicPETHit::GetTrackLength() const {
   return fTrackLength;
 }
 
-//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+//
 
 #endif
