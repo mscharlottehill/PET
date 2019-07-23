@@ -38,7 +38,6 @@
 
 BasicRunAction::BasicRunAction()
  : G4UserRunAction()
-//   fDetConst(detConst)
 
 {
   // set printing run number only
@@ -105,24 +104,6 @@ void BasicRunAction::EndOfRunAction(const G4Run* run)
 
   auto analysisManager = G4AnalysisManager::Instance();
   if ( analysisManager->GetH1(1) ) {
-/*    G4cout << G4endl << " ----> print histograms statistic ";
-    if(isMaster) {
-      G4cout << "for the entire run " << G4endl << G4endl;
-    }
-    else {
-      G4cout << "for the local thread " << G4endl << G4endl;
-    }
-
-    G4cout << " Energy deposited : mean = "
-       << G4BestUnit(analysisManager->GetH1(0)->mean(), "Energy")
-       << " rms = "
-       << G4BestUnit(analysisManager->GetH1(0)->rms(),  "Energy") << G4endl;
-
-    G4cout << " Length of radiation interaction : mean = "
-      << G4BestUnit(analysisManager->GetH1(1)->mean(), "Length")
-      << " rms = "
-      << G4BestUnit(analysisManager->GetH1(1)->rms(),  "Length") << G4endl;
-*/
 
     G4int goodEvents = GoodEventCount;
     G4double sensitivity = (G4double(goodEvents)/nofEvents) * 100;
@@ -134,7 +115,7 @@ void BasicRunAction::EndOfRunAction(const G4Run* run)
 
 
     std::ofstream myfile;
-    myfile.open("RandData.csv", std::ofstream::app);
+    myfile.open("Data.csv", std::ofstream::app);
     //myfile << std::to_string(CrystLength)+", "+std::to_string(sensitivity) +"\n";
     myfile << std::to_string(DetLength)+", "+std::to_string(CrystLength)+", "+std::to_string(sensitivity) +"\n";
     myfile.close();
