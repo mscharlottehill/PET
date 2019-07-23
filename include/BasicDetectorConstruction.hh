@@ -43,11 +43,6 @@ class BasicDetectorConstruction : public G4VUserDetectorConstruction
     virtual G4VPhysicalVolume* Construct();
     virtual void ConstructSDandField();
 
-  //  void SetDetectorLength(G4double length);
-  //  G4double GetDetectorLength() { return fDetectorLength; }
-
-  //  void SetDetectorThickness(G4double thickness);
-  //  G4double GetDetectorThickness() { return fDetectorThickness; }
 
 
   private:
@@ -60,11 +55,9 @@ class BasicDetectorConstruction : public G4VUserDetectorConstruction
 
     static double DetLength;
     static double CrystLength;
-
-  //  G4double fDetectorLength;
-  //  G4double fDetectorThickness;
+    
 };
 
-//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+//
 
 #endif
