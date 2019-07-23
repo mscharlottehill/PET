@@ -1,5 +1,4 @@
-C HILL
-s1636673
+C. HILL 
 JUN-JUL 2019
 
 Code for GEANT4 simulation of simple PET scanner geometry.
