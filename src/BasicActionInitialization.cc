@@ -28,7 +28,6 @@
 #include "BasicPrimaryGeneratorAction.hh"
 #include "BasicRunAction.hh"
 #include "BasicEventAction.hh"
-//#include "BasicDetectorConstruction.hh"
 
 //
 
